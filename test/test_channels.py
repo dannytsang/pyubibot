@@ -1,12 +1,13 @@
 import datetime
 import unittest
 import json
+import os
 
 from ubibotpy import Channel
 
 class TestStringMethods(unittest.TestCase):
     def setUp(self):
-        with open("testchannel.json") as json_file:
+        with open(os.path.join(os.path.join(os.path.dirname(__file__),"testchannel.json"))) as json_file:
             self.channel = Channel(json.load(json_file), 1234)
 
     def test_get_field_name_by_sensor(self):
