@@ -5,6 +5,7 @@ import os
 
 from ubibotpy import Channel
 
+
 class TestStringMethods(unittest.TestCase):
     def setUp(self):
         with open(os.path.join(os.path.join(os.path.dirname(__file__),"testchannel.json"))) as json_file:
