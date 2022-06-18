@@ -14,8 +14,8 @@ import requests
 from datetime import datetime
 
 
-import ubibotpy.constants as CONST
-from ubibotpy.channels import Channel
+import pyubibot.constants as CONST
+from pyubibot.channels import Channel
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -48,3 +48,7 @@ class Channels:
             _LOGGER.error("failed to load channels - %s", error)
 
         return self._channels
+
+    def get_channel(self, channel_id):
+        """Get channel by channel_id."""
+        return self._channels.get(channel_id)
