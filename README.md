@@ -1,4 +1,4 @@
-# ubibotpy
+# pyubibot
 Ubibot API wrapped in Python implementation library.
 
 Currently, only supports application key access to all "channels" (devices) associated to the account.
