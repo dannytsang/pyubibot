@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pyubibot",
-    version="0.0.1",
+    version="0.0.2",
     author="Danny Tsang",
     author_email="danny@tsang.uk",
     description="Python implementation for Ubibot APIs.",

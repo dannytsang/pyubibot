@@ -3,7 +3,7 @@ import unittest
 import json
 import os
 
-from ubibotpy import Channel
+from pyubibot import Channel
 
 
 class TestStringMethods(unittest.TestCase):
