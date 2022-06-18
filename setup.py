@@ -1,6 +1,6 @@
 import setuptools
 
-with open("README.md", "r") as fh:
+with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
@@ -18,5 +18,6 @@ setuptools.setup(
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent"
     ],
-    python_requires='>=3.6'
+    packages=setuptools.find_packages(where="pyubibot"),
+    python_requires=">=3.8"
 )
