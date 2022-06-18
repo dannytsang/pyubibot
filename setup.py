@@ -12,12 +12,11 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/dannytsang/pyubibot",
-    packages=setuptools.find_packages(),
+    packages=setuptools.find_packages(where="pyubibot"),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent"
     ],
-    packages=setuptools.find_packages(where="pyubibot"),
     python_requires=">=3.8"
 )
