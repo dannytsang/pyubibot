@@ -30,22 +30,26 @@ class Channels:
         """Initialize Ubibot platform."""
         self._account_key = account_key
         self._channels = {}
+        self._response = None
 
     def get_channels(self):
         """Load all channels."""
         try:
             response = requests.get(url=self._GET_CHANNELS_URL,
                                     params={"account_key": self._account_key},
-                                    headers=self._HEADERS)
+                                    headers=self._HEADERS).json()
 
-            response_json = response.json()
-            c = response_json["channels"]
-            for channel in c:
-                channel_id = channel["channel_id"]
-                self._channels[channel_id] = Channel(channel, channel_id)
-            _LOGGER.info("Channels reloaded at: %s", datetime.now())
-        except Exception as error:
+            if response.get("result") == "success":
+                c = response["channels"]
+                for channel in c:
+                    channel_id = channel["channel_id"]
+                    self._channels[channel_id] = Channel(channel, channel_id)
+                _LOGGER.info("Channels reloaded at: %s", datetime.now())
+            else:
+                raise Exception(self._response.get("errorCode"))
+        except (Exception) as error:
             _LOGGER.error("failed to load channels - %s", error)
+            raise error
 
         return self._channels
 
