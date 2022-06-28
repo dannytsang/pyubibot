@@ -20,11 +20,10 @@ from pyubibot.channels import Channel
 _LOGGER = logging.getLogger(__name__)
 
 
-class Channels:
+class Ubibot:
     """Principal class for Channels."""
 
     _HEADERS = CONST.HEADERS
-    _GET_CHANNELS_URL = CONST.CHANNELS_URL
 
     def __init__(self, account_key):
         """Initialize Ubibot platform."""
@@ -35,7 +34,7 @@ class Channels:
     def get_channels(self):
         """Load all channels."""
         try:
-            response = requests.get(url=self._GET_CHANNELS_URL,
+            response = requests.get(url=CONST.CHANNELS_URL,
                                     params={"account_key": self._account_key},
                                     headers=self._HEADERS).json()
 
@@ -54,5 +53,20 @@ class Channels:
         return self._channels
 
     def get_channel(self, channel_id):
-        """Get channel by channel_id."""
-        return self._channels.get(channel_id)
+        """Get a single channel data by channel_id."""
+        try:
+            response = requests.get(url=CONST.CHANNEL_URL+channel_id,
+                                    params={"account_key": self._account_key},
+                                    headers=self._HEADERS).json()
+
+            if response.get("result") == "success":
+                # Replace channel in the list with updated data.
+                self._channels[channel_id] = Channel(response["channel"], channel_id)
+                _LOGGER.info("Channel reloaded at: %s", datetime.now())
+
+                return self._channels[channel_id]
+            else:
+                raise Exception(self._response.get("errorCode"))
+        except (Exception) as error:
+            _LOGGER.error("failed to load channel - %s", error)
+            raise error
